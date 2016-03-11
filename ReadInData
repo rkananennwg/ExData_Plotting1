@@ -1,0 +1,17 @@
+# Reading Data
+dat <- "household_power_consumption.txt"
+power_data <- read.csv(dat, header = TRUE, sep= ";", na.strings = "?",
+                       stringsAsFactors = FALSE,
+                       nrows=2075259,
+                       colClasses = c("character","character", 
+                                      rep("numeric", 7)))
+str(power_data[1:10,]) #Check
+
+#Subset the data
+set <- subset(power_data, Date == "1/2/2007" | Date == "2/2/2007")
+str(set[1:10, ])#check
+rm(power_data) # deleting unused data
+
+#format for time
+x <-paste(set$Date, set$Time)
+time_set <- strptime(x, "%d/%m/%Y %H:%M:%S")
