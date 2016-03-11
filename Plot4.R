@@ -1,31 +1,17 @@
+source("Loading the Data.R")
 
+#plot 4
+par(mfrow = c(2, 2)) 
+plot(time_set, set$Global_active_power, type="l", xlab="", ylab="Global Active Power", cex=0.2)
+plot(time_set, set$Voltage, type="l", xlab="datetime", ylab="Voltage")
+plot(time_set, set$Sub_metering_1, type = "l",xlab = "", ylab = "Energy sub metering" )
+lines(time_set, set$Sub_metering_2, type = "l", col = "red")
+lines(time_set, set$Sub_metering_3, type = "l", col = "blue")
+legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
+       lty = 1, lwd = 1.5, cex = 0.7, col =c("black", "red", "blue"), bty = "n",
+       y.intersp = 0.2)
+plot(time_set, set$Global_reactive_power, type="l", xlab="datetime", ylab="Global_reactive_power")
 
-#set working directory to file location
-setwd("H:/datasciencecoursera/Exploratory Data/exdata-data-household_power_consumption")
-#read in file
-householdFile <- "household_power_consumption.txt"
-plotData <- read.table(householdFile, header=T, sep=";", na.strings="?")
-## set time variable
-FebData <- plotData[plotData$Date %in% c("1/2/2007","2/2/2007"),]
-SetTime <-strptime(paste(FebData$Date, FebData$Time),"%d/%m/%Y %H:%M:%S")
-
-## Converting dates
-datetime <- paste(as.Date(FebData$Date), data$Time)
-FebData$Datetime <- as.POSIXct(datetime)
-
-## Plot 4
-par(mfrow=c(2,2), mar=c(4,4,2,1), oma=c(0,0,2,0))
-with(FebData, {
-  plot(Global_active_power~Datetime, type="l", 
-       ylab="Global Active Power (kilowatts)", xlab="")
-  plot(Voltage~Datetime, type="l", 
-       ylab="Voltage (volt)", xlab="")
-  plot(Sub_metering_1~Datetime, type="l", 
-       ylab="Global Active Power (kilowatts)", xlab="")
-  lines(Sub_metering_2~Datetime,col='Red')
-  lines(Sub_metering_3~Datetime,col='Blue')
-  legend("topright", col=c("black", "red", "blue"), lty=1, lwd=2, bty="n",
-         legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
-  plot(Global_reactive_power~Datetime, type="l", 
-       ylab="Global Rective Power (kilowatts)",xlab="")
-})
+#Saving File
+dev.copy(png,  file = "plot4.png", height = 480, width = 480)
+dev.off() 
