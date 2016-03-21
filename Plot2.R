@@ -1,11 +1,8 @@
 
-source("Loading the Data.R")
-#plot.2
-plot(time_set, set$Global_active_power, 
-     xlab = "",
-     ylab = "Global Active Power(kilowatts)",
-     type = "l")
-
-#Saving the file
-dev.copy(png,  file = "plot2.png", height = 480, width = 480)
-dev.off()
+plot2 <- function() {
+  plot(df$timestamp,df$Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)")
+  dev.copy(png, file="plot2.png", width=480, height=480)
+  dev.off()
+  cat("plot2.png has been saved in", getwd())
+}
+plot2()
